@@ -1,0 +1,11 @@
+---
+# Skip List is used to completely bypass a check by ansible-lint.
+# This should only be used as a last resort.
+skip_list:
+  - yaml  # yaml is bypassed as we use yamllint
+
+# Warn List causes the linter to still report issues for these checks.
+# However it will not cause linting to fail.
+# This should be the most common option used as we should fix these issues.
+warn_list:
+  - role-name

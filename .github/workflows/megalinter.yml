@@ -1,0 +1,20 @@
+---
+name: Lint Code Base
+on: [pull_request]
+jobs:
+  megalinter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Lint Code Base
+        uses: oxsecurity/megalinter/flavors/terraform@v5.10.0
+        env:
+          ANSIBLE_DIRECTORY: "."
+          DEFAULT_BRANCH: main
+          ENABLE_LINTERS: ANSIBLE_ANSIBLE_LINT,YAML_YAMLLINT
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PRINT_ALPACA: false
+          VALIDATE_ALL_CODEBASE: true
