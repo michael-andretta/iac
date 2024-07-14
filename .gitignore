@@ -1,0 +1,12 @@
+### Individual Files to Ignore ###
+.DS_Store
+secrets.py
+
+### Directories to Ignore ###
+input
+output
+
+### Ignore Anything Containing Name ###
+secrets
+env_vars
+__pycache__
