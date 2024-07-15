@@ -8,7 +8,7 @@ gh_base_url = "https://api.github.com"
 owner = "michael-andretta"
 
 headers = {
-    "Authorization": gh_token
+    "Authorization": "Bearer " + gh_token
 }
 
 ### Functions ###
