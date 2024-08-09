@@ -133,32 +133,42 @@ if __name__ == "__main__":
     ### Load Labels from YAML ###
     logger("Proposed Labels from YAML", "GH_ACTION")
     proposed_labels_yml = load_yaml_file("labels.yml")
-    logger(f"YAML: {proposed_labels_yml}", "INFO")
+    # logger(f"YAML: {proposed_labels_yml}", "INFO")
     ### Show Proposed Labels Data Types ###
-    for label in proposed_labels_yml:
+    for label in proposed_labels_yml if proposed_labels_yml is not None else []:
         logger(f"Proposed Label: Name: {label['name']} | HEX code: {label['color']} | Description: {label['description']}", "INFO")
 
-    ## Creare New Labels If they are not already in the repo ###
-    logger("Creating/Updating/Deleting Labels", "GH_ACTION")
-    for label in proposed_labels_yml:
+    ### Creare New Labels If they are not already in the repo ###
+    logger("Creating/Updating Labels", "GH_ACTION")
+    for label in proposed_labels_yml if proposed_labels_yml is not None else []:
         try:
             ### If Label Does Not Exist Create It ###
             if label['name'] not in [x['name'] for x in current_labels]:
                 create_gh_label(repo, label['name'], label['description'], label['color'])
 
             ### If Label Exists Update It ###
-            elif label['name'] in [x['name'] for x in current_labels]:
+            if label['name'] in [x['name'] for x in current_labels] and \
+                (label['description'] != current_labels[[x['name'] for x in current_labels].index(label['name'])]['description'] or \
+                    label['color'] != current_labels[[x['name'] for x in current_labels].index(label['name'])]['color']):
                 update_gh_label(repo, label['name'], label['description'], label['color'])
 
-            ### If label is in current but not in proposed delete it ###
-            elif label['name'] in [x['name'] for x in current_labels]:
-                logger(f"Label: {label['name']} already exists", "INFO")
-
             else:
-                logger(f"Error creating/updating label: {label['name']}", "ERROR")
+                logger(f"Label: {label['name']} already exists with the same description and color", "INFO")
 
         except Exception as e:
             logger(f"Error creating label: {label['name']} -- {e}", "ERROR")
 
-    ### Test Deleting Labels ###
-    delete_gh_label(repo, "test")
+    ### Delete Labels That Are Not In The YAML but in Current ###
+    try:
+        if len(proposed_labels_yml) < len(current_labels):
+            logger("Deleting Labels", "GH_ACTION")
+            for label in current_labels:
+                if label['name'] not in [x['name'] for x in proposed_labels_yml]:
+                    delete_gh_label(repo, label['name'])
+    except Exception as e:
+        logger(f"No Labels to Delete | labels.yml is empty", "WARNING")
+
+    if proposed_labels_yml is None:
+        logger("Deleting All Labels", "GH_ACTION")
+        for label in current_labels:
+            delete_gh_label(repo, label['name'])
