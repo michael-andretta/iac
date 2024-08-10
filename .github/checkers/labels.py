@@ -10,13 +10,14 @@ gh_base_url = "https://api.github.com"
 owner = "michael-andretta"
 
 headers = {
-    "Authorization": "Bearer " + gh_token
+    "Authorization": gh_token
 }
 
 ### Define GitHub Environment ###
 GITHUB_WORKSPACE = os.getenv("GITHUB_WORKSPACE")
 if GITHUB_WORKSPACE is not None:
     print("### Running in GitHub Mode ###")
+    _DEBUG = False
     GHPATH = GITHUB_WORKSPACE + "/"
     GH_ROOT_DIR = "/"
     GITHUB_TOKEN = os.getenv("GITSECRET")
@@ -25,6 +26,7 @@ if GITHUB_WORKSPACE is not None:
 
 else:
     print("### Running in Local Mode ###")
+    _DEBUG = True
     GHPATH = os.path.dirname(os.path.realpath(__file__)) + "/"
     GH_ROOT_DIR = GHPATH
     GITHUB_TOKEN = None # "" ###
@@ -32,25 +34,25 @@ else:
     GITHUB_REPOSITORY = None # "officedepot/network_scripts"
 
 ### Define Logging Function ###
-def logger(log_message, level="WARNING"):
+def logger(log_message, level="UNKNOWN"):
     if level == "GH_ACTION":
         print('##########################')
         print(f'# {log_message} ')
         print('##########################')
+    elif level == "OK":
+        print(f'OK - {log_message}')
     elif level == "INFO":
         print(f'INFO - {log_message}')
-    elif level == "ERROR":
-        print(f'ERROR - {log_message}')
     elif level == "WARNING":
         print(f'WARNING - {log_message}')
-    elif level == "DEBUG":
+    elif level == "ERROR":
+        print(f'ERROR - {log_message}')
+    elif level == "DEBUG" and _DEBUG == True:
         print(f'DEBUG - {log_message}')
-    elif level == "POUNDSIGN":
-        print('##########################')
+    elif level == "UNKNOWN":
+        print(f'UNKNOWN LOGGING LEVEL - {log_message}')
     elif level == "NONE":
         print(f'{log_message}')
-    else:
-        print(f'##### {log_message} #####')
 
 ### Load Labels from YAML ###
 def load_yaml_file(file, path=GHPATH):
@@ -136,7 +138,7 @@ if __name__ == "__main__":
     # logger(f"YAML: {proposed_labels_yml}", "INFO")
     ### Show Proposed Labels Data Types ###
     for label in proposed_labels_yml if proposed_labels_yml is not None else []:
-        logger(f"Proposed Label: Name: {label['name']} | HEX code: {label['color']} | Description: {label['description']}", "INFO")
+        logger(f"Proposed Label: {label['name']} | HEX code: {label['color']} | Description: {label['description']}", "INFO")
 
     ### Creare New Labels If they are not already in the repo ###
     logger("Creating/Updating Labels", "GH_ACTION")
