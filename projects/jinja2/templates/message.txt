@@ -1,0 +1,8 @@
+Hello {{ name }}!
+
+This is using a Jijna2 template!
+
+Test Name: {{ test_name }}
+
+Score: {{ score }}
+Max Score: {{ max_score }}

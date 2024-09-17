@@ -1,0 +1,13 @@
+ignore:
+  - '.github' # Ignore github workflow files and directories
+  - 'collections' # Ignore Ansible collections directory and files
+  - 'jpc_' # Ignore policy checker files
+  - 'schema.yml' # Ignore schema file
+  - 'url_checker.yml' # Ignore URL checker file
+  - 'empty_lists.yml' # Ignore blank lists file
+  - 'not_in_service' # Ignore provisioning files that are not in service
+  - 'oob' # Ignore policy files in the out-of-band directory
+  - 'ch-fw-ebd-01' # Ignore EBD master provisioning file
+  - 'roles' ### Ignore roles directory and files
+  - 'hit_counts' # Ignore hit count files
+  - 'juniper_policy_checker' # Ignore policy checker files
