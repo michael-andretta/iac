@@ -1,0 +1,49 @@
+---
+- name: test
+  color: 2596be # blue
+  description: Test label
+
+- name: sec_arch_rqd
+  color: db60ce # pink
+  description: Security Architecture Required
+
+- name: mike_test_automation
+  color: e4e669 # yellow
+  description: Mike Test Automation
+
+- name: jess_test_automation
+  color: fd026d # pink
+  description: Jess Test Automation
+
+### Default GitHub Labels
+- name: bug
+  color: d73a4a # red
+  description: Something isn't working
+
+- name: documentation
+  color: 0075ca # blue
+  description: Improvements or additions to documentation
+
+- name: duplicate
+  color: cfd3d7 # light grey
+  description: This issue or pull request already exists
+
+- name: enhancement
+  color: a2eeef # light blue
+  description: New feature or request
+
+- name: good first issue
+  color: 7057ff # purple
+  description: Good for newcomers
+
+- name: help wanted
+  color: 008672 # green
+  description: Extra attention is needed
+
+- name: invalid
+  color: e4e669 # yellow
+  description: This doesn't seem right
+
+- name: question
+  color: d876e3 # purple
+  description: Further information is requested

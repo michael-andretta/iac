@@ -1,0 +1,24 @@
+---
+# Empty new line results in the varibale results in a single new line when parsed.
+
+# Replace %USER_NAME% with the GitHub user name of the user who created the pull request.
+inital_sae_pr_comment: ':warning: %USER_NAME% Please provide SAE answers to the following questions in a comment below:
+
+        ```
+
+        1. What is the business use case for this request?
+
+        2. Is there a SAE Jira number to reference? If not, have you worked with a SAE team member on this request or is it related to a Security Architecture Review or Project?
+
+        3. Provide a namespace name, service name, or project name if applicable.
+
+        4. Is the Firewall or Pull Request a new service being built within EKS or AKS, a new infrastructure build in Azure, or part of a migration to Azure?
+
+        ```'
+
+no_quad0_ingress_allowed_comment: 'If you require ingress from the internet, it must traverse a WAF such as AKAMAI.  If you dont require ingress from the internet, you need to specify the source network'
+
+web_app_assessment_rqd_comment: 'Internet ingress has been detected in this PR, please ensure you have completed a Web Application Assessment form and scheduled a kickoff call with SAE & TVM to discuss the specifics of your application. These assessments happen on a quarterly basis and can take up to a month to get prepared for.
+
+        You can create a new form by creating a new page in Confluence using the Web Application Assessment template.'
+...

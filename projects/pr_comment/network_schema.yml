@@ -1,0 +1,6 @@
+ignored:
+  # Files to Ignore
+  - "README.md"
+  - "network_schema.yml"
+  # Directories to Ignore
+  - ".github"
